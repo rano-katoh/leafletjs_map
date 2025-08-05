@@ -1,0 +1,85 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>アイコン付・多奈崎市スクロールマップ</title>
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.4/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet@1.3.4/dist/leaflet.js"></script>
+	<style>
+		*{margin:0; padding:0;}
+	#map { height: 100vh; }
+	</style>
+</head>
+
+<body>
+	<div id="map"></div>
+	<script>
+	
+var map = L.map('map').setView([0,0], 16);
+ 
+//OSMレイヤー追加
+L.tileLayer(
+	'maps/16/{x}/{y}.jpg',
+	{
+		attribution: 'Map data &copy; <a href="https://hiji.mosha2.jp/">空想都市 多奈崎</a>',
+		minZoom: 2,
+		maxZoom: 20,
+		maxNativeZoom: 16,
+		minNativeZoom: 16
+	}
+).addTo(map);
+
+		//スケール追加
+		L.control.scale().addTo(map);
+		
+		// ---------- アイコンを仕込む
+
+		// フキダシ
+		var IconComment = L.icon({
+			iconUrl: './icons/icon_comment.png',
+			iconSize: [32, 32],
+			iconAnchor: [16, 32],
+			popupAnchor: [0, -32],
+		});
+
+		// レストランマーク
+		var IconRestaurant = L.icon({
+			iconUrl: './icons/icon_restaurant.png',
+			iconSize: [32, 32],
+			iconAnchor: [16, 16],
+			popupAnchor: [0, -16],
+		});
+
+		// ---------- 
+
+		//マーカーを作る関数　引数に　座標x,座標y,マップオブジェクト(基本的にL固定),アイコン種類,タイトル,本文　を設定
+		function mapBindMarker(x, y, target, icon, title, content){
+			target.marker([x,y], {icon: icon}).addTo(map).bindPopup("<h2>"+title+"</h2><p>"+content+"</p>", {autoClose: false});
+		}
+
+		// ---------- 
+
+		// レストラン
+		mapBindMarker(-0.00228473916589325, -0.01310958992689848, L, IconRestaurant, "県庁新館食堂", "大積県多奈崎市大手町2-1<br><br>fumichan_1207<br>★★★★☆<br>安くて美味しいです(^○^)。野菜日替わりカレー食べました。<br><br>yu akiyama<br>★★★☆☆<br>値段相応。食券を買ってからの流れが少しわかりにくい。昼間は県庁職員で混雑している");
+		mapBindMarker(-0.003788683095047927, -0.018339059315621856, L, IconRestaurant, "食事処　ゆう", "大積県多奈崎市片原町14-7<br><br>Love_xxx_poyo<br>★★★★★<br>平日の11時ごろに行きましたがかなり混んでました。片原町の交流館から歩いてすぐ。<br>店主さんが気さくで癒されます。<br><br>pepepe0809<br>★★★★☆<br>初めて訪問。そば定食が思ったより美味しかった。");
+		mapBindMarker(0.007096705940095773, -0.0019945995882153515, L, IconRestaurant, "麺や つるぎ", "大積県多奈崎市三本松町2-19-5<br><br>ramenBlog55<br>★★★☆☆<br>入店時はやる気のなさそうな店員に心配になったが、味は問題なし。醤油ベースの豚骨ラーメンはこのあたりでは珍しい。<br>つるぎとんこつ　￥850");
+		mapBindMarker(0.01558240309240413, -0.0029860058566555385, L, IconRestaurant, "フェスタ多奈崎林原店", "大積県多奈崎市林原町2-4-21<br><br>fumichan_1207<br>★★★★☆<br>親戚の集まりで行きました。休日のお昼は混んでますね。<br>水はセルフサービスです。カレードリアセットを注文。料理は猫のロボットが運んでくれました(=^ェ^=)<br><br>Kobayashi Kenichi<br>★⭐︎⭐︎⭐︎⭐︎<br>ここの教育はどうなってるんだ❓ピンポン押しても誰も来ない、やっと来たと思ったら愛想の悪い定員。もう行きません");
+		mapBindMarker(0.001964199472779345, -0.023144378210417926, L, IconRestaurant, "エイハブ室坂店", "大積県多奈崎市室坂町23-15<br><br>Owaki Yuko<br>★★★★★<br>昔からあるシーフードレストランです。ロブスターグリルセットは子供の頃から変わらずの美味しさ。<br><br>Fumi___ya<br>★★★★★<br>大積県の隠れたローカルチェーン店。初岡から来ました。休日の夜8時ごろ、かなりの混雑。店内に入るといきなりロブスターの生簀、数が多すぎてちょっと怖いです。<br>メニューは大きな木の板を開く式。名物らしいロブスターグリルセットを注文。<br>調理前の生きてるロブスターを見せてもらえます。すごい！<br>久しぶりに食べるロブスターはプリプリで最高でした。県外にも展開してほしい・・・<br><br>Moeko<br>★★★★⭐︎<br>お値段は張りますが、その分客層は良いです！");
+		mapBindMarker(-0.008897012995188485, -0.012189571280032398, L, IconRestaurant, "TATSUMI ビストロ", "大積県多奈崎市弥生町6-5<br><br>Love_xxx_poyo<br>★★★★★<br>五船橋から移転して初訪問。以前より落ち着いた場所になり、行きやすくなりました。<br>以前よりも広く静かな雰囲気。<br><br>Masa0606<br>★★★★★<br>とても美味しかったです。お店の方も気さくに話しかけてくれました。<br><br>HanaHana<br>★★★★★<br>全部美味しかったですが、特に和牛のランプが最高でした。また行きたいです！");
+		mapBindMarker(-0.004682948341958244, -0.010787760838866236, L, IconRestaurant, "餃子 紅龍", "大積県多奈崎市花月町1-6 上屋ビル<br><br>Sugiyama Sho<br>★★★★⭐︎<br>舞茸餃子定食を食べに。美味だが店の床が滑りやすい点だけ注意。");
+
+		//住民の声
+		mapBindMarker(-0.000020535662762867227, -0.004937276244163514, L, IconComment, "", "謎に冷食が充実している");
+		mapBindMarker(-0.0024573225520425107, -0.009061465971171858, L, IconComment, "", "市電が来ない");
+
+		// Debug用　クリックした場所の座標をログに出力する
+		map.on('click', function(e) {
+			lat = e.latlng.lat;
+			lng = e.latlng.lng;
+			console.log(lat + ", " + lng);
+		} );
+	
+	</script>
+</body>
+</html>
